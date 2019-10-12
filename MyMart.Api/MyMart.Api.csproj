@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp2.1'">
+    <ProjectReference Include="..\MyMart.Domain\MyMart.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
