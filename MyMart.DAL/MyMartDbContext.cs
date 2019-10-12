@@ -19,11 +19,17 @@ namespace MyMart.DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.ConfigureCustomerConstraints();
             modelBuilder.ConfigureOrderConstraints();
             modelBuilder.ConfigurePaymentDetailConstraints();
             modelBuilder.ConfigureProductConstraints();
             modelBuilder.ConfigureProductConstraints();
+
+            modelBuilder.SeedCustomer();
+            modelBuilder.SeedCustomer();
+            modelBuilder.SeedProduct();
+            modelBuilder.SeedRack();
         }
     }
 }

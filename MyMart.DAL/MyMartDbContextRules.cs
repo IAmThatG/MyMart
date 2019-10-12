@@ -21,7 +21,7 @@ namespace MyMart.DAL
                 entity.Property<DateTime>(c => c.DateCreated)
                       .HasDefaultValue(DateTime.Now)
                       .ValueGeneratedOnAdd();
-                entity.Property<DateTime>(c => c.DateUpdated)
+                entity.Property<DateTime?>(c => c.DateUpdated)
                       .HasDefaultValue(DateTime.Now)
                       .ValueGeneratedOnUpdate();
             });
@@ -45,7 +45,7 @@ namespace MyMart.DAL
                 entity.Property<DateTime>(o => o.DateCreated)
                       .HasDefaultValue(DateTime.Now)
                       .ValueGeneratedOnAdd();
-                entity.Property<DateTime>(o => o.DateUpdated)
+                entity.Property<DateTime?>(o => o.DateUpdated)
                       .HasDefaultValue(DateTime.Now)
                       .ValueGeneratedOnUpdate();
             });
@@ -70,7 +70,7 @@ namespace MyMart.DAL
                 entity.Property<DateTime>(pd => pd.DateCreated)
                       .HasDefaultValue(DateTime.Now)
                       .ValueGeneratedOnAdd();
-                entity.Property<DateTime>(pd => pd.DateUpdated)
+                entity.Property<DateTime?>(pd => pd.DateUpdated)
                       .HasDefaultValue(DateTime.Now)
                       .ValueGeneratedOnUpdate();
             });
@@ -93,7 +93,7 @@ namespace MyMart.DAL
                 entity.Property<DateTime>(o => o.DateCreated)
                       .HasDefaultValue(DateTime.Now)
                       .ValueGeneratedOnAdd();
-                entity.Property<DateTime>(o => o.DateUpdated)
+                entity.Property<DateTime?>(o => o.DateUpdated)
                       .HasDefaultValue(DateTime.Now)
                       .ValueGeneratedOnUpdate();
             });
