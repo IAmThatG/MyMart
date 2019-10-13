@@ -17,7 +17,8 @@ namespace MyMart.DAL
                         Firstname = "Austin",
                         Lastname = "Ovia",
                         Email = "austin_ovia@vatebra.com",
-                        PhoneNumber = "08022334567"
+                        PhoneNumber = "08022334567",
+                        DateCreated = DateTime.Now
                     }
                 );
             });
@@ -32,13 +33,15 @@ namespace MyMart.DAL
                     {
                         Id = 1,
                         Name = "Phones and Accessories",
-                        Description = "For mobile gadgets"
+                        Description = "For mobile gadgets",
+                        DateCreated = DateTime.Now
                     },
                     new Rack
                     {
-                        Id = 1,
+                        Id = 2,
                         Name = "Laptops and Accessories",
-                        Description = "Get your Laptops and accessories"
+                        Description = "Get your Laptops and accessories",
+                        DateCreated = DateTime.Now
                     }
                 );
             });
@@ -55,15 +58,17 @@ namespace MyMart.DAL
                         Name = "Samsung Galaxy S10",
                         Description = "This is Samsung's latest phone",
                         Price = 300_000.00M,
-                        RackId = 1
+                        RackId = 1,
+                        DateCreated = DateTime.Now
                     },
                     new Product
                     {
-                        Id = 1,
+                        Id = 2,
                         Name = "MacBook Pro 2019",
                         Description = "This is the latest macbook pro",
                         Price = 1_000_000M,
-                        RackId = 2
+                        RackId = 2,
+                        DateCreated = DateTime.Now
                     }
                 );
             });
@@ -81,7 +86,8 @@ namespace MyMart.DAL
                         CardType = CardType.MASTERCARD,
                         CardNumber = "123456789101112",
                         Cvv = "123",
-                        ExpiryDate = DateTime.Now.AddYears(2)
+                        ExpiryDate = DateTime.Now.AddYears(2),
+                        DateCreated = DateTime.Now
                     }
                 );
             });

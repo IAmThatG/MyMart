@@ -27,7 +27,7 @@ namespace MyMart.DAL
             modelBuilder.ConfigureProductConstraints();
 
             modelBuilder.SeedCustomer();
-            modelBuilder.SeedCustomer();
+            modelBuilder.SeedPaymentDetail();
             modelBuilder.SeedProduct();
             modelBuilder.SeedRack();
         }

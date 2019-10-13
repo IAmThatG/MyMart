@@ -18,12 +18,6 @@ namespace MyMart.DAL
                 entity.HasMany<PaymentDetail>(c => c.PaymentDetails)
                       .WithOne(p => p.Customer)
                       .HasForeignKey(p => p.CustomerId);
-                entity.Property<DateTime>(c => c.DateCreated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnAdd();
-                entity.Property<DateTime?>(c => c.DateUpdated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnUpdate();
             });
         }
 
@@ -35,19 +29,13 @@ namespace MyMart.DAL
                 entity.Property<byte[]>(c => c.RowVersion).IsRowVersion();
                 entity.Property<decimal>(o => o.OrderPrice)
                       .IsRequired()
-                      .HasDefaultValue(0.00);
+                      .HasDefaultValue(0.00M);
                 entity.Property<long>(o => o.ProductQuantity)
                       .IsRequired()
                       .HasDefaultValue(1);
                 entity.HasOne<Product>(o => o.Product)
                       .WithMany(p => p.Orders)
                       .HasForeignKey(o => o.ProductId);
-                entity.Property<DateTime>(o => o.DateCreated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnAdd();
-                entity.Property<DateTime?>(o => o.DateUpdated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnUpdate();
             });
         }
 
@@ -67,12 +55,6 @@ namespace MyMart.DAL
                 entity.HasOne<Customer>(pd => pd.Customer)
                       .WithMany(c => c.PaymentDetails)
                       .HasForeignKey(pd => pd.CustomerId);
-                entity.Property<DateTime>(pd => pd.DateCreated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnAdd();
-                entity.Property<DateTime?>(pd => pd.DateUpdated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnUpdate();
             });
         }
 
@@ -83,19 +65,13 @@ namespace MyMart.DAL
                 entity.HasKey(p => p.Id);
                 entity.Property<byte[]>(p => p.RowVersion).IsRowVersion();
                 entity.Property<string>(p => p.Name).IsRequired();
-                entity.Property<decimal>(p => p.Price).HasDefaultValue(0.00);
+                entity.Property<decimal>(p => p.Price).HasDefaultValue(0.00M);
                 entity.HasOne<Rack>(p => p.Rack)
                       .WithMany(r => r.Products)
                       .HasForeignKey(p => p.RackId);
                 entity.HasMany<Order>(p => p.Orders)
                       .WithOne(o => o.Product)
                       .HasForeignKey(o => o.ProductId);
-                entity.Property<DateTime>(o => o.DateCreated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnAdd();
-                entity.Property<DateTime?>(o => o.DateUpdated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnUpdate();
             });
         }
 
@@ -109,13 +85,7 @@ namespace MyMart.DAL
                 entity.HasMany<Product>(r => r.Products)
                       .WithOne(p => p.Rack)
                       .HasForeignKey(p => p.RackId);
-                entity.Property<DateTime>(p => p.DateCreated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnAdd();
-                entity.Property<DateTime>(p => p.DateUpdated)
-                      .HasDefaultValue(DateTime.Now)
-                      .ValueGeneratedOnUpdate();
-            })
+            });
         }
     }
 }
