@@ -18,6 +18,8 @@ using MyMart.DAL.Repositories.Implementations;
 using MyMart.DAL.Repositories;
 using MyMart.Domain.services;
 using MyMart.Domain.services.Implementations;
+using AutoMapper;
+using MyMart.Domain.Mappings;
 
 namespace MyMart.Api
 {
@@ -37,10 +39,16 @@ namespace MyMart.Api
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                     .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-            services.AddDbContext<MyMartDbContext>(opt => opt.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<MyMartDbContext>(opt => opt.UseSqlServer("Server=(local);Database=MyMartDb;User Id=sa;Password=Gabbyg89@.com"));
             
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IProductService, ProductService>();
+            
+            // Injecting automapper
+            var mapperConfig = new MapperConfiguration(cfg => {
+                cfg.AddProfile(new MappingProfile());
+            });
+            services.AddSingleton<IMapper>(impl => mapperConfig.CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

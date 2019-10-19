@@ -16,9 +16,9 @@ namespace MyMart.DAL.Repositories.Implementations
             return await base.ctx.Products.ToListAsync();
         }
 
-        public async Task<Product> GetById()
+        public async Task<Product> GetById(long id)
         {
-            return await base.ctx.Products.SingleOrDefaultAsync(p => p.Id);
+            return await base.ctx.Products.SingleOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task Insert(Product data)

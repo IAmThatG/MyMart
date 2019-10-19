@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyMart.DAL.Entities;
 using MyMart.Domain.services;
+using MyMart.Domain.Models.Response;
+using MyMart.Domain.Models.Request;
 
 namespace MyMart.Api.Controllers
 {
@@ -26,7 +28,7 @@ namespace MyMart.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            ICollection<Product> products;
+            ICollection<ProductResponse> products;
             try
             {
                 products = await _productService.GetAll();
@@ -40,12 +42,12 @@ namespace MyMart.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProduct()
+        public async Task<IActionResult> GetProduct(long id)
         {
-            Product product;
+            ProductResponse product;
             try
             {
-                product = await _productService.GetById();
+                product = await _productService.GetById(id);
             }
             catch (Exception e)
             {
@@ -56,7 +58,7 @@ namespace MyMart.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostProduct([FromBody] Product product)
+        public async Task<IActionResult> PostProduct([FromBody] ProductRequest product)
         {
             try
             {
