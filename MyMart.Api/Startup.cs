@@ -14,6 +14,10 @@ using Microsoft.EntityFrameworkCore;
 using MyMart.Domain;
 using MyMart.DAL;
 using Newtonsoft.Json;
+using MyMart.DAL.Repositories.Implementations;
+using MyMart.DAL.Repositories;
+using MyMart.Domain.services;
+using MyMart.Domain.services.Implementations;
 
 namespace MyMart.Api
 {
@@ -34,6 +38,9 @@ namespace MyMart.Api
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                     .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddDbContext<MyMartDbContext>(opt => opt.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+            
+            services.AddScoped<IProductRepo, ProductRepo>();
+            services.AddScoped<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
