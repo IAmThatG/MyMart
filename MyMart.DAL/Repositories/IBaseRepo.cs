@@ -6,8 +6,11 @@ namespace MyMart.DAL.Repositories
 {
     public interface IBaseRepo<T> where T : BaseEntity
     {
-        Task<ICollection<T>> GetAll();
-        Task<T> GetById(long id);
-        Task Insert(T data);
+        Task<ICollection<T>> GetAllAsync();
+        Task<T> GetByIdAsync(long id);
+        Task<T> InsertAsync(T data);
+
+        Task<T> UpdateAsync(long id, T data);
+        Task DeleteAsync(long id);
     }
 }

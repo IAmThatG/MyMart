@@ -18,7 +18,6 @@ namespace MyMart.DAL
                         Lastname = "Ovia",
                         Email = "austin_ovia@vatebra.com",
                         PhoneNumber = "08022334567",
-                        DateCreated = DateTime.Now
                     }
                 );
             });
@@ -34,14 +33,12 @@ namespace MyMart.DAL
                         Id = 1,
                         Name = "Phones and Accessories",
                         Description = "For mobile gadgets",
-                        DateCreated = DateTime.Now
                     },
                     new Rack
                     {
                         Id = 2,
                         Name = "Laptops and Accessories",
                         Description = "Get your Laptops and accessories",
-                        DateCreated = DateTime.Now
                     }
                 );
             });
@@ -59,7 +56,7 @@ namespace MyMart.DAL
                         Description = "This is Samsung's latest phone",
                         Price = 300_000.00M,
                         RackId = 1,
-                        DateCreated = DateTime.Now
+                        
                     },
                     new Product
                     {
@@ -68,7 +65,7 @@ namespace MyMart.DAL
                         Description = "This is the latest macbook pro",
                         Price = 1_000_000M,
                         RackId = 2,
-                        DateCreated = DateTime.Now
+                        
                     }
                 );
             });
@@ -87,7 +84,7 @@ namespace MyMart.DAL
                         CardNumber = "123456789101112",
                         Cvv = "123",
                         ExpiryDate = DateTime.Now.AddYears(2),
-                        DateCreated = DateTime.Now
+                        
                     }
                 );
             });

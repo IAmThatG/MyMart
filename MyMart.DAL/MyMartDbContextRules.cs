@@ -18,6 +18,8 @@ namespace MyMart.DAL
                 entity.HasMany<PaymentDetail>(c => c.PaymentDetails)
                       .WithOne(p => p.Customer)
                       .HasForeignKey(p => p.CustomerId);
+                entity.Property(c => c.DateCreated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+                entity.Property(c => c.DateUpdated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAddOrUpdate();
             });
         }
 
@@ -36,6 +38,8 @@ namespace MyMart.DAL
                 entity.HasOne<Product>(o => o.Product)
                       .WithMany(p => p.Orders)
                       .HasForeignKey(o => o.ProductId);
+                entity.Property(c => c.DateCreated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+                entity.Property(c => c.DateUpdated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAddOrUpdate();
             });
         }
 
@@ -55,6 +59,8 @@ namespace MyMart.DAL
                 entity.HasOne<Customer>(pd => pd.Customer)
                       .WithMany(c => c.PaymentDetails)
                       .HasForeignKey(pd => pd.CustomerId);
+                entity.Property(c => c.DateCreated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+                entity.Property(c => c.DateUpdated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAddOrUpdate();
             });
         }
 
@@ -72,6 +78,8 @@ namespace MyMart.DAL
                 entity.HasMany<Order>(p => p.Orders)
                       .WithOne(o => o.Product)
                       .HasForeignKey(o => o.ProductId);
+                entity.Property(c => c.DateCreated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+                entity.Property(c => c.DateUpdated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAddOrUpdate();
             });
         }
 

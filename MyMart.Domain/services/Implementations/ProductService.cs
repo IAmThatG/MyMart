@@ -7,6 +7,7 @@ using MyMart.DAL.Repositories;
 using MyMart.Domain.Models.Request;
 using MyMart.Domain.Models.Response;
 using AutoMapper;
+using MyMart.DAL.Utils;
 
 namespace MyMart.Domain.services.Implementations
 {
@@ -21,7 +22,7 @@ namespace MyMart.Domain.services.Implementations
             _mapper = mapper;
         }
 
-        public async Task Create(ProductRequest request)
+        public async Task<ProductResponse> Create(ProductRequest request)
         {
             var product = _mapper.Map<ProductRequest, Product>(request);
             // var product = new Product
@@ -31,18 +32,22 @@ namespace MyMart.Domain.services.Implementations
             //     Description = request.Description,
             //     DateCreated = DateTime.Now
             // };
-            await _repo.Insert(product);
+            var createdProduct = await _repo.InsertAsync(product);
+            var productRes = _mapper.Map<Product, ProductResponse>(createdProduct);
+            return productRes;
         }
+
+        public async Task DeleteAsync(long id) => await _repo.DeleteAsync(id);
 
         public async Task<ICollection<ProductResponse>> GetAll()
         {
             ICollection<ProductResponse> response;
             try
             {
-                var products = await _repo.GetAll();
+                var products = await _repo.GetAllAsync();
                 response = _mapper.Map<ICollection<Product>, ICollection<ProductResponse>>(products);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw;
             }
@@ -65,17 +70,34 @@ namespace MyMart.Domain.services.Implementations
 
         public async Task<ProductResponse> GetById(long id)
         {
-            var product = await _repo.GetById(id);
-            return new ProductResponse
+            ProductResponse result = null;
+            var product = await _repo.GetByIdAsync(id);
+            if (product != null)
             {
-                id = product.Id,
-                RackId = product.RackId,
-                Name = product.Name,
-                Price = product.Price,
-                Description = product.Description,
-                DateCreated = product.DateCreated,
-                DateUpdated = product.DateUpdated,
-            };
+                result = new ProductResponse
+                {
+                    Id = product.Id,
+                    RackId = product.RackId,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Description = product.Description,
+                    DateCreated = product.DateCreated,
+                    DateUpdated = product.DateUpdated,
+                };
+            }
+            return result;
+        }
+
+        public async Task<ProductResponse> Update(long id, ProductRequest data)
+        {
+            var product = await _repo.GetByIdAsync(id);
+            product.Name = data.Name ?? product.Name;
+            product.Price = decimal.Compare(data.Price, 0M) > 0 ? data.Price : product.Price;
+            product.RackId = data.RackId > 0 ? data.RackId : product.RackId;
+            product.Description = data.Description ?? product.Description;
+            var updatedProduct = await _repo.UpdateAsync(id, product);
+            var productResponse = _mapper.Map<Product, ProductResponse>(updatedProduct);
+            return productResponse;
         }
     }
 }

@@ -25,9 +25,13 @@ namespace MyMart.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime?>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<DateTime?>("DateUpdated");
+                    b.Property<DateTime?>("DateUpdated")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Email")
                         .IsRequired();
@@ -49,7 +53,7 @@ namespace MyMart.DAL.Migrations
                     b.ToTable("Customers");
 
                     b.HasData(
-                        new { Id = 1L, DateCreated = new DateTime(2019, 10, 12, 20, 54, 35, 580, DateTimeKind.Local), Email = "austin_ovia@vatebra.com", Firstname = "Austin", Lastname = "Ovia", PhoneNumber = "08022334567" }
+                        new { Id = 1L, Email = "austin_ovia@vatebra.com", Firstname = "Austin", Lastname = "Ovia", PhoneNumber = "08022334567" }
                     );
                 });
 
@@ -61,9 +65,13 @@ namespace MyMart.DAL.Migrations
 
                     b.Property<long>("CustomerId");
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime?>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<DateTime?>("DateUpdated");
+                    b.Property<DateTime?>("DateUpdated")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<decimal>("OrderPrice")
                         .ValueGeneratedOnAdd()
@@ -108,9 +116,13 @@ namespace MyMart.DAL.Migrations
                         .IsFixedLength(true)
                         .HasMaxLength(3);
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime?>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<DateTime?>("DateUpdated");
+                    b.Property<DateTime?>("DateUpdated")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<DateTime>("ExpiryDate");
 
@@ -125,7 +137,7 @@ namespace MyMart.DAL.Migrations
                     b.ToTable("PaymentDetails");
 
                     b.HasData(
-                        new { Id = 1L, CardHolder = "Austin Ovia", CardNumber = "123456789101112", CardType = 1, CustomerId = 1L, Cvv = "123", DateCreated = new DateTime(2019, 10, 12, 20, 54, 35, 582, DateTimeKind.Local), ExpiryDate = new DateTime(2021, 10, 12, 20, 54, 35, 581, DateTimeKind.Local) }
+                        new { Id = 1L, CardHolder = "Austin Ovia", CardNumber = "123456789101112", CardType = 1, CustomerId = 1L, Cvv = "123", ExpiryDate = new DateTime(2021, 10, 26, 14, 46, 38, 190, DateTimeKind.Local) }
                     );
                 });
 
@@ -135,9 +147,13 @@ namespace MyMart.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime?>("DateCreated")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValueSql("GETDATE()");
 
-                    b.Property<DateTime?>("DateUpdated");
+                    b.Property<DateTime?>("DateUpdated")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasDefaultValueSql("GETDATE()");
 
                     b.Property<string>("Description");
 
@@ -161,8 +177,8 @@ namespace MyMart.DAL.Migrations
                     b.ToTable("Products");
 
                     b.HasData(
-                        new { Id = 1L, DateCreated = new DateTime(2019, 10, 12, 20, 54, 35, 582, DateTimeKind.Local), Description = "This is Samsung's latest phone", Name = "Samsung Galaxy S10", Price = 300000.00m, RackId = 1L },
-                        new { Id = 2L, DateCreated = new DateTime(2019, 10, 12, 20, 54, 35, 582, DateTimeKind.Local), Description = "This is the latest macbook pro", Name = "MacBook Pro 2019", Price = 1000000m, RackId = 2L }
+                        new { Id = 1L, Description = "This is Samsung's latest phone", Name = "Samsung Galaxy S10", Price = 300000.00m, RackId = 1L },
+                        new { Id = 2L, Description = "This is the latest macbook pro", Name = "MacBook Pro 2019", Price = 1000000m, RackId = 2L }
                     );
                 });
 
@@ -172,7 +188,7 @@ namespace MyMart.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCreated");
+                    b.Property<DateTime?>("DateCreated");
 
                     b.Property<DateTime?>("DateUpdated");
 
@@ -187,8 +203,8 @@ namespace MyMart.DAL.Migrations
                     b.ToTable("Racks");
 
                     b.HasData(
-                        new { Id = 1L, DateCreated = new DateTime(2019, 10, 12, 20, 54, 35, 583, DateTimeKind.Local), Description = "For mobile gadgets", Name = "Phones and Accessories" },
-                        new { Id = 2L, DateCreated = new DateTime(2019, 10, 12, 20, 54, 35, 583, DateTimeKind.Local), Description = "Get your Laptops and accessories", Name = "Laptops and Accessories" }
+                        new { Id = 1L, Description = "For mobile gadgets", Name = "Phones and Accessories" },
+                        new { Id = 2L, Description = "Get your Laptops and accessories", Name = "Laptops and Accessories" }
                     );
                 });
 

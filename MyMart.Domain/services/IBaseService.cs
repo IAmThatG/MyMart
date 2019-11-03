@@ -10,6 +10,8 @@ namespace MyMart.Domain.services
     {
         Task<ICollection<T>> GetAll();
         Task<T> GetById(long id);
-        Task Create(G data);
+        Task<T> Create(G data);
+        Task<T> Update(long id, G data);
+        Task DeleteAsync(long id);
     }
 }

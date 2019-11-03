@@ -20,6 +20,10 @@ using MyMart.Domain.services;
 using MyMart.Domain.services.Implementations;
 using AutoMapper;
 using MyMart.Domain.Mappings;
+using FluentValidation.AspNetCore;
+using MyMart.Domain.Models.Request;
+using FluentValidation;
+using MyMart.Domain.Models.Validators;
 
 namespace MyMart.Api
 {
@@ -38,12 +42,18 @@ namespace MyMart.Api
         {
             services.AddMvc()
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                    .AddFluentValidation()
                     .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
-            services.AddDbContext<MyMartDbContext>(opt => opt.UseSqlServer("Server=(local);Database=MyMartDb;User Id=sa;Password=Gabbyg89@.com"));
+            services.AddDbContext<MyMartDbContext>(opt => opt.UseSqlServer("Server=(local);Database=MyMartDb;User Id=sa;Password=gabbyg89@.com"));
             
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IProductService, ProductService>();
-            
+            services.AddScoped<IRackRepo, RackRepo>();
+            services.AddScoped<IRackService, RackService>();
+
+            //inject validators
+            services.AddTransient<IValidator<ProductRequest>, ProductRequestValidator>();
+
             // Injecting automapper
             var mapperConfig = new MapperConfiguration(cfg => {
                 cfg.AddProfile(new MappingProfile());

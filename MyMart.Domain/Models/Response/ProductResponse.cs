@@ -1,3 +1,4 @@
+using MyMart.DAL.Entities;
 using System;
 
 namespace MyMart.Domain.Models.Response
@@ -8,7 +9,5 @@ namespace MyMart.Domain.Models.Response
         public string Name { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime? DateUpdated { get; set; }
     }
 }

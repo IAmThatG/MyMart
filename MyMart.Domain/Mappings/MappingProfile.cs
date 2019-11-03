@@ -1,5 +1,6 @@
 using AutoMapper;
 using MyMart.DAL.Entities;
+using MyMart.Domain.Models.Request;
 using MyMart.Domain.Models.Response;
 
 namespace MyMart.Domain.Mappings
@@ -9,6 +10,9 @@ namespace MyMart.Domain.Mappings
         public MappingProfile()
         {
             CreateMap<Product, ProductResponse>().ReverseMap();
+            CreateMap<ProductRequest, Product>().ReverseMap();
+            CreateMap<RackRequest, Rack>().ReverseMap();
+            CreateMap<Rack, RackResponse>().ReverseMap();
         }
     }
 }
