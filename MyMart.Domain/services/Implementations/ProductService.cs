@@ -22,7 +22,7 @@ namespace MyMart.Domain.services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<ProductResponse> Create(ProductRequest request)
+        public async Task<ProductResponse> CreateAsync(ProductRequest request)
         {
             var product = _mapper.Map<ProductRequest, Product>(request);
             // var product = new Product
@@ -39,7 +39,7 @@ namespace MyMart.Domain.services.Implementations
 
         public async Task DeleteAsync(long id) => await _repo.DeleteAsync(id);
 
-        public async Task<ICollection<ProductResponse>> GetAll()
+        public async Task<ICollection<ProductResponse>> GetAllAsync()
         {
             ICollection<ProductResponse> response;
             try
@@ -68,7 +68,7 @@ namespace MyMart.Domain.services.Implementations
             return response;
         }
 
-        public async Task<ProductResponse> GetById(long id)
+        public async Task<ProductResponse> GetByIdAsync(long id)
         {
             ProductResponse result = null;
             var product = await _repo.GetByIdAsync(id);
@@ -88,7 +88,7 @@ namespace MyMart.Domain.services.Implementations
             return result;
         }
 
-        public async Task<ProductResponse> Update(long id, ProductRequest data)
+        public async Task<ProductResponse> UpdateAsync(long id, ProductRequest data)
         {
             var product = await _repo.GetByIdAsync(id);
             product.Name = data.Name ?? product.Name;

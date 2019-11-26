@@ -8,10 +8,10 @@ namespace MyMart.Domain.services
 {
     public interface IBaseService<T, G> where T : BaseResponse where G : BaseRequest
     {
-        Task<ICollection<T>> GetAll();
-        Task<T> GetById(long id);
-        Task<T> Create(G data);
-        Task<T> Update(long id, G data);
+        Task<ICollection<T>> GetAllAsync();
+        Task<T> GetByIdAsync(long id);
+        Task<T> CreateAsync(G data);
+        Task<T> UpdateAsync(long id, G data);
         Task DeleteAsync(long id);
     }
 }

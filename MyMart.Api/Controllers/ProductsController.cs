@@ -10,6 +10,7 @@ using MyMart.Domain.services;
 using MyMart.Domain.Models.Response;
 using MyMart.Domain.Models.Request;
 using MyMart.DAL.Utils;
+using Microsoft.AspNetCore.Http;
 
 namespace MyMart.Api.Controllers
 {
@@ -32,7 +33,7 @@ namespace MyMart.Api.Controllers
             ApiResponse response;
             try
             {
-                var products = await _productService.GetAll();
+                var products = await _productService.GetAllAsync();
                 response = new ApiResponse
                 {
                     status = true,
@@ -60,7 +61,7 @@ namespace MyMart.Api.Controllers
             ProductResponse productRes;
             try
             {
-                productRes = await _productService.GetById(id);
+                productRes = await _productService.GetByIdAsync(id);
                 if (productRes == null)
                 {
                     return NotFound(new ApiResponse
@@ -74,7 +75,7 @@ namespace MyMart.Api.Controllers
             {
                 _logger.LogError(e, "Error occurred while fetching product");
 
-                return StatusCode((int)HttpStatusCode.InternalServerError,
+                return StatusCode(StatusCodes.Status500InternalServerError,
                     new ApiResponse
                     {
                         status = false,
@@ -96,7 +97,7 @@ namespace MyMart.Api.Controllers
             ProductResponse productRes;
             try
             {
-                productRes = await _productService.Create(product);
+                productRes = await _productService.CreateAsync(product);
                 response = new ApiResponse
                 {
                     status = true,
@@ -124,7 +125,7 @@ namespace MyMart.Api.Controllers
             ProductResponse productResponse;
             try
             {
-                productResponse = await _productService.Update(id, request);
+                productResponse = await _productService.UpdateAsync(id, request);
                 response = new ApiResponse
                 {
                     status = true,

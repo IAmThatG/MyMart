@@ -9,7 +9,7 @@ namespace MyMart.DAL.Entities
         public string CardNumber { get; set; }
         public CardType CardType { get; set; }
         public string Cvv { get; set; }
-        public DateTime ExpiryDate { get; set; }
+        public DateTime? ExpiryDate { get; set; }
         public Customer Customer { get; set; }
     }
 }

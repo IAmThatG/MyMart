@@ -20,7 +20,7 @@ namespace MyMart.Domain.services.Implementations
             _repo = repo;
             _mapper = mapper;
         }
-        public async Task<RackResponse> Create(RackRequest data)
+        public async Task<RackResponse> CreateAsync(RackRequest data)
         {
             var rack = _mapper.Map<RackRequest, Rack>(data);
             var createdRack = await _repo.InsertAsync(rack);
@@ -33,17 +33,17 @@ namespace MyMart.Domain.services.Implementations
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<RackResponse>> GetAll()
+        public Task<ICollection<RackResponse>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<RackResponse> GetById(long id)
+        public Task<RackResponse> GetByIdAsync(long id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<RackResponse> Update(long id, RackRequest data)
+        public Task<RackResponse> UpdateAsync(long id, RackRequest data)
         {
             throw new NotImplementedException();
         }

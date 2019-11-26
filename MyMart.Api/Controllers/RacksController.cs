@@ -31,7 +31,7 @@ namespace MyMart.Api.Controllers
             RackResponse rackRes;
             try
             {
-                rackRes = await _rackService.Create(request);
+                rackRes = await _rackService.CreateAsync(request);
                 response = new ApiResponse
                 {
                     status = true,
@@ -58,7 +58,7 @@ namespace MyMart.Api.Controllers
             RackResponse productRes;
             try
             {
-                productRes = await _rackService.GetById(id);
+                productRes = await _rackService.GetByIdAsync(id);
                 if (productRes == null)
                 {
                     return NotFound(new ApiResponse

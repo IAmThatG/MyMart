@@ -1,9 +1,10 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyMart.DAL.Entities;
 
 namespace MyMart.DAL
 {
-    public class MyMartDbContext : DbContext
+    public class MyMartDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, long>
     {
         public DbSet<Order> Orders { get; set; }
         public DbSet<Customer> Customers { get; set; }
@@ -24,10 +25,12 @@ namespace MyMart.DAL
             modelBuilder.ConfigureOrderConstraints();
             modelBuilder.ConfigurePaymentDetailConstraints();
             modelBuilder.ConfigureProductConstraints();
-            modelBuilder.ConfigureProductConstraints();
+            modelBuilder.ConfigureRackConstraints();
+            modelBuilder.ConfigureApplicationUserConstraints();
+            modelBuilder.ConfigureApplicationRoleConstraints();
 
-            modelBuilder.SeedCustomer();
-            modelBuilder.SeedPaymentDetail();
+            //modelBuilder.SeedCustomer();
+            //modelBuilder.SeedPaymentDetail();
             modelBuilder.SeedProduct();
             modelBuilder.SeedRack();
         }

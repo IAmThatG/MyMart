@@ -6,22 +6,22 @@ namespace MyMart.DAL
 {
     public static class MyMartDbSeeder
     {
-        public static void SeedCustomer(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Customer>(entity =>
-            {
-                entity.HasData(
-                    new Customer
-                    {
-                        Id = 1,
-                        Firstname = "Austin",
-                        Lastname = "Ovia",
-                        Email = "austin_ovia@vatebra.com",
-                        PhoneNumber = "08022334567",
-                    }
-                );
-            });
-        }
+        //public static void SeedCustomer(this ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Customer>(entity =>
+        //    {
+        //        entity.HasData(
+        //            new Customer
+        //            {
+        //                Id = 1,
+        //                Firstname = "Austin",
+        //                Lastname = "Ovia",
+        //                Email = "austin_ovia@vatebra.com",
+        //                PhoneNumber = "08022334567",
+        //            }
+        //        );
+        //    });
+        //}
 
         public static void SeedRack(this ModelBuilder modelBuilder)
         {
@@ -71,23 +71,23 @@ namespace MyMart.DAL
             });
         }
 
-        public static void SeedPaymentDetail(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<PaymentDetail>(entity =>
-            {
-                entity.HasData(
-                    new PaymentDetail {
-                        Id = 1,
-                        CustomerId = 1,
-                        CardHolder = "Austin Ovia",
-                        CardType = CardType.MASTERCARD,
-                        CardNumber = "123456789101112",
-                        Cvv = "123",
-                        ExpiryDate = DateTime.Now.AddYears(2),
+        //public static void SeedPaymentDetail(this ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<PaymentDetail>(entity =>
+        //    {
+        //        entity.HasData(
+        //            new PaymentDetail {
+        //                Id = 1,
+        //                CustomerId = 1,
+        //                CardHolder = "Austin Ovia",
+        //                CardType = CardType.MASTERCARD,
+        //                CardNumber = "123456789101112",
+        //                Cvv = "123",
+        //                ExpiryDate = DateTime.Now.AddYears(2),
                         
-                    }
-                );
-            });
-        }
+        //            }
+        //        );
+        //    });
+        //}
     }
 }

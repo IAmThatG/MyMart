@@ -12,7 +12,7 @@ namespace MyMart.DAL
             {
                 entity.HasKey(b => b.Id);
                 entity.Property<byte[]>(c => c.RowVersion).IsRowVersion();
-                entity.Property<string>(c => c.Email).IsRequired();
+                //entity.Property<string>(c => c.Email).IsRequired();
                 entity.Property<string>(c => c.Firstname).IsRequired();
                 entity.Property<string>(c => c.Lastname).IsRequired();
                 entity.HasMany<PaymentDetail>(c => c.PaymentDetails)
@@ -20,6 +20,7 @@ namespace MyMart.DAL
                       .HasForeignKey(p => p.CustomerId);
                 entity.Property(c => c.DateCreated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
                 entity.Property(c => c.DateUpdated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAddOrUpdate();
+                entity.HasOne(c => c.ApplicationUser).WithOne(au => au.Customer).HasForeignKey<Customer>(c => c.ApplicationUserId);
             });
         }
 
@@ -55,7 +56,7 @@ namespace MyMart.DAL
                       .IsRequired()
                       .HasMaxLength(3)
                       .IsFixedLength();
-                entity.Property<DateTime>(pd => pd.ExpiryDate).IsRequired();
+                entity.Property<DateTime?>(pd => pd.ExpiryDate).IsRequired();
                 entity.HasOne<Customer>(pd => pd.Customer)
                       .WithMany(c => c.PaymentDetails)
                       .HasForeignKey(pd => pd.CustomerId);
@@ -93,6 +94,29 @@ namespace MyMart.DAL
                 entity.HasMany<Product>(r => r.Products)
                       .WithOne(p => p.Rack)
                       .HasForeignKey(p => p.RackId);
+            });
+        }
+
+        public static void ConfigureApplicationUserConstraints(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationUser>(entity =>
+            {
+                entity.HasKey(au => au.Id);
+                entity.Property(au => au.Email).IsRequired();
+                entity.Property(au => au.DateCreated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+                entity.Property(au => au.DateUpdated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAddOrUpdate();
+
+                entity.HasIndex(au => au.Email).IsUnique();
+            });
+        }
+
+        public static void ConfigureApplicationRoleConstraints(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ApplicationRole>(entity =>
+            {
+                entity.HasKey(au => au.Id);
+                entity.Property(au => au.DateCreated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAdd();
+                entity.Property(au => au.DateUpdated).HasDefaultValueSql("GETDATE()").ValueGeneratedOnAddOrUpdate();
             });
         }
     }

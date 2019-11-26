@@ -13,6 +13,8 @@ namespace MyMart.Domain.Mappings
             CreateMap<ProductRequest, Product>().ReverseMap();
             CreateMap<RackRequest, Rack>().ReverseMap();
             CreateMap<Rack, RackResponse>().ReverseMap();
+            CreateMap<CustomerRequest, Customer>().ReverseMap();
+            CreateMap<Customer, CustomerResponse>().ReverseMap();
         }
     }
 }

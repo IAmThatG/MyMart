@@ -24,6 +24,11 @@ using FluentValidation.AspNetCore;
 using MyMart.Domain.Models.Request;
 using FluentValidation;
 using MyMart.Domain.Models.Validators;
+using MyMart.DAL.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using MyMart.Domain.Configurations;
 
 namespace MyMart.Api
 {
@@ -45,17 +50,49 @@ namespace MyMart.Api
                     .AddFluentValidation()
                     .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddDbContext<MyMartDbContext>(opt => opt.UseSqlServer("Server=(local);Database=MyMartDb;User Id=sa;Password=gabbyg89@.com"));
-            
+
+            var jwtOptionsSection = _config.GetSection("JwtOptions");
+            services.Configure<JwtOptions>(jwtOptionsSection);
+            var jwtOptions = jwtOptionsSection.Get<JwtOptions>();
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>(opt =>
+            {
+                opt.User.RequireUniqueEmail = true;
+                opt.Password.RequireNonAlphanumeric = false;
+            })
+                .AddEntityFrameworkStores<MyMartDbContext>();
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = jwtOptions.Issuer,
+                    ValidAudience = jwtOptions.Audience,
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtOptions.Secret))
+                };
+            });
+
             services.AddScoped<IProductRepo, ProductRepo>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRackRepo, RackRepo>();
             services.AddScoped<IRackService, RackService>();
+            services.AddScoped<ICustomerRepo, CustomerRepo>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             //inject validators
             services.AddTransient<IValidator<ProductRequest>, ProductRequestValidator>();
 
             // Injecting automapper
-            var mapperConfig = new MapperConfiguration(cfg => {
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
                 cfg.AddProfile(new MappingProfile());
             });
             services.AddSingleton<IMapper>(impl => mapperConfig.CreateMapper());
@@ -74,6 +111,7 @@ namespace MyMart.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
         }
     }
